@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "288828273972",
+    "project_id": "markdown-note-pja",
+    "storage_bucket": "markdown-note-pja.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288828273972:android:9aca6e613ef3cfeab66161",
+        "android_client_info": {
+          "package_name": "com.example.markdown_note_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288828273972-gm87nsdg0dr2d9n5l77qv4katamfkuv5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAEjJGvZrXOypK0NC7FLb46IgSmdMRM-g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "288828273972-gm87nsdg0dr2d9n5l77qv4katamfkuv5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "288828273972-2dnijgfh4rcbotq897ig7rjhhdhov50r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.markdownNoteApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288828273972:android:1ea99cd8f7269bf2b66161",
+        "android_client_info": {
+          "package_name": "com.example.note_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288828273972-gm87nsdg0dr2d9n5l77qv4katamfkuv5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAEjJGvZrXOypK0NC7FLb46IgSmdMRM-g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "288828273972-gm87nsdg0dr2d9n5l77qv4katamfkuv5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "288828273972-2dnijgfh4rcbotq897ig7rjhhdhov50r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.markdownNoteApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
