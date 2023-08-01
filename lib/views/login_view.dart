@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:note_app/routes/routes.dart';
 import 'package:note_app/views/register_page.dart';
+import 'dart:developer' as dev show log;
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -63,14 +65,29 @@ class _LoginViewState extends State<LoginView> {
                   email: email,
                   password: password,
                 );
-                print(userCredential);
+                dev.log(userCredential.toString());
+
+                final user = FirebaseAuth.instance.currentUser;
+                if (user?.emailVerified ?? false) {
+                  // If user is verified, send them to note view page
+                  if (context.mounted) {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        noteViewRoute, (route) => false);
+                  }
+                } else {
+                  // If user is not verified, send them to verify email page
+                  if (context.mounted) {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        verifyEmailRoute, (route) => false);
+                  }
+                }
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'user-not-found') {
-                  print('No user found for that email.');
+                  dev.log('No user found for that email.');
                 } else if (e.code == 'wrong-password') {
-                  print('Wrong password ');
+                  dev.log('Wrong password ');
                 } else if (e.code == 'invalid-email') {
-                  print('Invalid email');
+                  dev.log('Invalid email');
                 }
               }
             },
@@ -79,7 +96,7 @@ class _LoginViewState extends State<LoginView> {
           TextButton(
             onPressed: () {
               Navigator.of(context)
-                  .pushNamedAndRemoveUntil('/register/', (route) => false);
+                  .pushNamedAndRemoveUntil(registerRoute, (route) => false);
             },
             child: const Text("Register"),
           )

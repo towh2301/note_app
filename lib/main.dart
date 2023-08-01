@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:note_app/pages/note_view.dart';
+import 'package:note_app/pages/note_edit_mobile.dart';
+import 'package:note_app/routes/routes.dart';
 import 'package:note_app/views/login_view.dart';
 import 'package:note_app/views/register_page.dart';
 import 'package:note_app/views/verify_email.dart';
 import 'firebase_options.dart';
+import 'dart:developer' as dev show log;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,8 +29,10 @@ class MyApp extends StatelessWidget {
       ),
       home: const HomePage(),
       routes: {
-        '/login/': (context) => const LoginView(),
-        '/register/': (context) => const RegisterView(),
+        loginRoute: (context) => const LoginView(),
+        registerRoute: (context) => const RegisterView(),
+        noteViewRoute: (context) => const NoteView(),
+        verifyEmailRoute: (context) => const VerifyEmailView(),
       },
     );
   }
@@ -51,6 +55,7 @@ class HomePage extends StatelessWidget {
             if (user != null) {
               if (user.emailVerified) {
                 return const NoteView();
+                // return const LoginView();
               } else {
                 return const VerifyEmailView();
               }
