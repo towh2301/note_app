@@ -63,11 +63,12 @@ class PreviewPage extends StatelessWidget {
           ],
         ),
         floatingActionButton: FloatingActionButton(
+          heroTag: "previewBtn",
           onPressed: () {
             Navigator.of(context).pop(
               MaterialPageRoute(
                 builder: (context) => const MaterialApp(
-                  home: NoteView(),
+                  home: NoteEditMobile(),
                 ),
               ),
             );

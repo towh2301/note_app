@@ -1,25 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'dart:developer' as dev show log;
-
-import 'package:note_app/routes/routes.dart';
-
 import 'note_preview_mobile.dart';
 
-enum MenuItem {
-  logout,
-}
-
-class NoteView extends StatefulWidget {
-  const NoteView({super.key});
+class NoteEditMobile extends StatefulWidget {
+  const NoteEditMobile({super.key});
 
   @override
-  State<NoteView> createState() => _NoteViewState();
+  State<NoteEditMobile> createState() => _NoteEditMobileState();
 }
 
-class _NoteViewState extends State<NoteView> {
-  int _selectedIndex = 0;
+class _NoteEditMobileState extends State<NoteEditMobile> {
   String data = "";
 
   late final TextEditingController _controller;
@@ -36,54 +27,9 @@ class _NoteViewState extends State<NoteView> {
     super.dispose();
   }
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Index 0: Note View'),
-    Text('Index 1: Tag View'),
-    Text('Index 2: Profile'),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Note View'),
-        backgroundColor: Colors.red[200],
-        actions: [
-          PopupMenuButton(onSelected: (value) async {
-            switch (value) {
-              case MenuItem.logout:
-                {
-                  final doLogout = await showLogoutDialog(context);
-                  dev.log(doLogout.toString());
-                  if (doLogout) {
-                    await FirebaseAuth.instance.signOut();
-
-                    // Navigate to login page and remove all routes
-                    if (context.mounted) {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                        loginRoute,
-                        (_) => false,
-                      );
-                    }
-                  }
-                }
-            }
-          }, itemBuilder: (context) {
-            return const [
-              PopupMenuItem(
-                value: MenuItem.logout,
-                child: Text('Logout'),
-              ),
-            ];
-          })
-        ],
-      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
@@ -102,9 +48,9 @@ class _NoteViewState extends State<NoteView> {
                       border: InputBorder.none,
                       hintText: "Enter some markdown note..."),
                   onChanged: (String content) {
-                    setState(() {
-                      data = content;
-                    });
+                    //setState(() {
+                    data = content;
+                    // });
                   },
                 ),
               ),
@@ -113,6 +59,7 @@ class _NoteViewState extends State<NoteView> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: "editBtn",
         onPressed: () {
           Navigator.of(context).push(
             _createRoute(data),
@@ -125,79 +72,8 @@ class _NoteViewState extends State<NoteView> {
           size: 30,
         ),
       ),
-      drawer: SizedBox(
-        width: 250,
-        child: Drawer(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(0), bottomRight: Radius.circular(0)),
-          ),
-          child: ListView(
-            children: [
-              const SizedBox(
-                height: 64,
-                child: DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 147, 187, 255),
-                  ),
-                  child: Text('Drawer Header'),
-                ),
-              ),
-              ListTile(
-                title: const Text('Item 0'),
-                selected: _selectedIndex == 0,
-                onTap: () {
-                  _onItemTapped(0);
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                title: const Text('Item 1'),
-                selected: _selectedIndex == 1,
-                onTap: () {
-                  _onItemTapped(1);
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                title: const Text('Item 2'),
-                selected: _selectedIndex == 2,
-                onTap: () {
-                  _onItemTapped(2);
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
-}
-
-// Show dialog for logout confirmation
-Future<bool> showLogoutDialog(BuildContext context) {
-  return showDialog<bool>(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: const Text('Logout'),
-        content: const Text('Are you sure you want to logout?'),
-        actions: [
-          ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop(false);
-              },
-              child: const Text('Cancel')),
-          ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop(true);
-              },
-              child: const Text('Logout')),
-        ],
-      );
-    },
-  ).then((value) => value ?? false);
 }
 
 // Disable first tap on text field
