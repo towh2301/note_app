@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'dart:developer' as dev show log;
+ // import 'dart:developer' as dev show log;
 import 'note_preview_mobile.dart';
 
 class NoteEditMobile extends StatefulWidget {
